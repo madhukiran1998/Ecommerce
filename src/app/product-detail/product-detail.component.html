@@ -1,0 +1,29 @@
+<div class="container"
+     fxLayout="column"
+     fxLayoutGap="10px">
+
+     <div fxFlex *ngIf="product">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            <h3>{{product.name | uppercase}}</h3>
+          </mat-card-title>
+        </mat-card-header>
+        <img mat-card-image src={{product.image}} alt={{product.name}}>
+        <mat-card-content>
+          <p>{{product.description}}
+          </p>
+          <p>{{product.price}}
+          </p>
+          <p>{{product.category}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="addToCart(product)">BUY</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  
+
+</div>

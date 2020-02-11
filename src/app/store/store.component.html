@@ -1,0 +1,30 @@
+<div class="container"
+     fxLayout="column"
+     fxLayoutGap="10px">
+
+  <div fxFlex>
+    <div>
+      <h3>Menu</h3>
+      <hr>
+    </div>
+  </div>
+
+  <div fxFlex >
+    <mat-grid-list cols="2" rowHeight="200px">
+      <mat-grid-tile *ngFor="let product of products; index as productId" 
+      [routerLink]="['/productdetail',productId]" [hidden]="products || errMess">
+        <img height="200px" src="{{baseURL + product.images}}" alt={{product.name}}>
+        <mat-grid-tile-footer>
+          <h1>{{product.name | uppercase}}</h1>
+        </mat-grid-tile-footer>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+
+
+</div>
+
+<div fxFlex *ngIf="errmess">
+  <h2>Error</h2>
+  <h4>{{errmess}}</h4>
+</div>

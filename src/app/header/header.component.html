@@ -1,0 +1,24 @@
+<mat-toolbar color="primary">
+  <a mat-button routerLink="/store"><span class="fa fa-shopping-cart fa-lg"></span> Store</a>
+  <a mat-button routerLink="/about"><span class="fa fa-info fa-lg"></span> About</a>
+  <a mat-button routerLink="/contact"><span class="fa fa-address-card fa-lg"></span> Contact</a>
+  <span class="new"><a mat-button routerLink="/cart" style="float: right;"><span class="fa fa-sign-out fa-lg"></span> Checkout </a></span>
+  <span class="flex-spacer"></span>
+  <a mat-button (click)="openLoginForm()"><span class="fa fa-sign-in fa-lg"></span> Login</a>
+</mat-toolbar>
+
+<div class="container jumbotron"
+    fxLayout="row"
+    fxLayout.sm="column" 
+    fxLayout.xs="column" 
+    fxLayoutAlign.xs="start center"
+    fxLayoutAlign.sm="start center" 
+    fxLayoutAlign.gt-sm="center center" 
+    fxLayoutGap="10px">
+
+  <div fxFlex fxFlex.gt-sm="50%">
+    <h1>Ecom</h1>
+    <p>We belive that Amazing things will happen when we listen to the consumer</p>
+  </div>
+  <div fxFlex></div>
+</div>
