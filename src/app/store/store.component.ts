@@ -22,7 +22,11 @@ export class StoreComponent implements OnInit {
 
   ngOnInit() {
     this.productsservice.getProducts()
-    .subscribe(product => this.products = product,
+    .subscribe((product) => {
+      console.log(product)
+      this.products = product
+    
+    },
       errmess => this.errMess = <any>errmess);
   }
 

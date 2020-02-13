@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Products } from '../shared/products';
 import { of } from 'rxjs';
-import { delay , catchError} from 'rxjs/operators';
-import { Observable} from 'rxjs';
+import { delay, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { baseURL } from '../shared/baseurl';
 
@@ -20,7 +20,12 @@ export class ProductsService {
 
   getProducts(): Observable<Products[]> {
     return this.http.get<Products[]>(baseURL + 'products')
-    .pipe(catchError(this.processHTTPMsgService.handleError));
+      .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
+  getProduct(productId) {
+    return this.http.get(baseURL + 'products/' + productId)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
 }

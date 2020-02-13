@@ -13,7 +13,7 @@
     <mat-grid-list cols="2" rowHeight="200px">
       <mat-grid-tile *ngFor="let product of products; index as productId" 
       [routerLink]="['/productdetail',productId]" [hidden]="products || errMess">
-        <img height="200px" src="{{baseURL + product.images}}" alt={{product.name}}>
+        <img height="200px" src="{{product.image}}" alt={{product.name}}>
         <mat-grid-tile-footer>
           <h1>{{product.name | uppercase}}</h1>
         </mat-grid-tile-footer>
