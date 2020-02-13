@@ -9,6 +9,7 @@ import {ProductsService} from '../services/products.service'
   styleUrls: ['./store.component.scss']
 })
 export class StoreComponent implements OnInit {
+  products: Products[];
   errMess: string;
 
 
@@ -17,7 +18,7 @@ export class StoreComponent implements OnInit {
     @Inject('baseURL') private baseURL
     ) { }
 
-  products: Products[];
+
 
   ngOnInit() {
     this.productsservice.getProducts()

@@ -9,16 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
+import { AuthService } from '../services/auth.service';
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(dialogRef) {
+    function LoginComponent(dialogRef, authService) {
         this.dialogRef = dialogRef;
+        this.authService = authService;
         this.user = { username: '', password: '', remember: false };
     }
     LoginComponent.prototype.ngOnInit = function () {
     };
     LoginComponent.prototype.onSubmit = function () {
+        var _this = this;
         console.log('User: ', this.user);
-        this.dialogRef.close();
+        this.authService.logIn(this.user)
+            .subscribe(function (res) {
+            if (res.success) {
+                _this.dialogRef.close(res.success);
+            }
+            else {
+                console.log(res);
+            }
+        }, function (error) {
+            console.log(error);
+            _this.errMess = error;
+        });
     };
     LoginComponent = __decorate([
         Component({
@@ -26,7 +40,8 @@ var LoginComponent = /** @class */ (function () {
             templateUrl: './login.component.html',
             styleUrls: ['./login.component.scss']
         }),
-        __metadata("design:paramtypes", [MatDialogRef])
+        __metadata("design:paramtypes", [MatDialogRef,
+            AuthService])
     ], LoginComponent);
     return LoginComponent;
 }());

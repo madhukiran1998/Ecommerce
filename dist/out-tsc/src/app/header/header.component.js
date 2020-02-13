@@ -10,14 +10,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { LoginComponent } from '../login/login.component';
+import { AuthService } from '../services/auth.service';
 var HeaderComponent = /** @class */ (function () {
-    function HeaderComponent(dialog) {
+    function HeaderComponent(dialog, authService) {
         this.dialog = dialog;
+        this.authService = authService;
+        this.username = undefined;
     }
     HeaderComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.authService.loadUserCredentials();
+        this.subscription = this.authService.getUsername()
+            .subscribe(function (name) { console.log(name); _this.username = name; });
+    };
+    HeaderComponent.prototype.ngOnDestroy = function () {
+        this.subscription.unsubscribe();
     };
     HeaderComponent.prototype.openLoginForm = function () {
-        this.dialog.open(LoginComponent, { width: '500px', height: '450px' });
+        var loginRef = this.dialog.open(LoginComponent, { width: '500px', height: '450px' });
+        loginRef.afterClosed()
+            .subscribe(function (result) {
+            console.log(result);
+        });
+    };
+    HeaderComponent.prototype.logOut = function () {
+        this.username = undefined;
+        this.authService.logOut();
     };
     HeaderComponent = __decorate([
         Component({
@@ -25,7 +43,8 @@ var HeaderComponent = /** @class */ (function () {
             templateUrl: './header.component.html',
             styleUrls: ['./header.component.scss']
         }),
-        __metadata("design:paramtypes", [MatDialog])
+        __metadata("design:paramtypes", [MatDialog,
+            AuthService])
     ], HeaderComponent);
     return HeaderComponent;
 }());

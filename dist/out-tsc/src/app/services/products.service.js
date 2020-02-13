@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { baseURL } from '../shared/baseurl';
 import { ProcessHTTPMsgService } from './process-httpmsg.service';
 var ProductsService = /** @class */ (function () {
     function ProductsService(http, processHTTPMsgService) {
@@ -17,7 +18,7 @@ var ProductsService = /** @class */ (function () {
         this.processHTTPMsgService = processHTTPMsgService;
     }
     ProductsService.prototype.getProducts = function () {
-        return this.http.get('/products')
+        return this.http.get(baseURL + 'products')
             .pipe(catchError(this.processHTTPMsgService.handleError));
     };
     ProductsService = __decorate([
