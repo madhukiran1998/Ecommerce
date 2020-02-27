@@ -2,16 +2,22 @@
 
 <div class="col-25">
   <div class="container">
-    <h4 >Cart
+    <h4>Cart
       <span class="price" style="color:black">
         <i class="fa fa-shopping-cart"></i>
       </span>
-    </h4 >
-    <div *ngFor="let item of items" >
-    <p><a href="#" >{{ item.name }}   </a> <span class="price">  Rs.{{ item.price }} /- </span></p>
-    <hr>
-</div>
+    </h4>
+    <div *ngFor="let item of items">
+      <p><a href="#">{{ item.name }} </a> <span class="price"> Rs.{{ item.price }} /- </span></p>
+      <hr>
+    </div>
 
-<div >
-  <p>Total <span class="price" style="color:black"><b>  Rs.{{ sums }}/-</b></span></p>
+    <div>
+      <p>Total <span class="price" style="color:black"><b> Rs.{{ sums }}/-</b></span></p>
+    </div>
+
+  </div>
+
+  <button mat-button  (click)="order()">Order!</button>
+
 </div>

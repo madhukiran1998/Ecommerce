@@ -11,25 +11,30 @@ export class CartComponent implements OnInit {
   items;
   sums;
 
-  constructor( private cartService: CartService) { 
+  constructor(private cartService: CartService) {
     this.items = this.cartService.getItems();
-    this.sums=this.cartService.addItems();
+    this.sums = this.cartService.addItems();
   }
 
   onSubmit(customerData) {
     // Process checkout data here
     console.warn('Your order has been submitted', customerData);
     this.items = this.cartService.clearitems();
-    }
-  
-    ngOnInit() {
-      this.items = this.cartService.getItems();
-    }
-  
-    cleark(){
-      this.items= this.cartService.clearitems();
-    }
+  }
 
+  ngOnInit() {
+    this.items = this.cartService.getItems();
+  }
 
+  cleark() {
+    this.items = this.cartService.clearitems();
+  }
+
+  order() {
+    this.cartService.placeOrder().subscribe((res) => {
+      console.log(res);
+      window.alert('Order Placed!')
+    })
+  }
 
 }
