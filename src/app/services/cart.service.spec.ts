@@ -8,32 +8,6 @@ import { CartService } from './cart.service';
 import { empty } from 'rxjs';
 
 describe('CartService', () => {
-
-  const mockProducts = [
-    {
-      id: '0',
-      name: 'ONE PLUS 6',
-      image: '/assets/images/6.jpeg',
-      category: 'mains',
-      featured: true,
-      label: 'Hot',
-      price: 24999,
-      description: 'Slate Gray 6GB RAM + 64GB memory',
-      details:[]
-      },
-    {
-      id: '1',
-      name: 'ONE PLUS 6T',
-      image: '/assets/images/6t.jpeg',
-      category: 'appetizer',
-      featured: false,
-      label: '',
-      price: 34999,
-      description: 'Midnight Black, 8GB RAM, 128GB Storage',
-      details:[]
-    },
-  ];
-
   let service: CartService;
   let httpTestingController: HttpTestingController;
     
@@ -43,6 +17,7 @@ describe('CartService', () => {
       imports: [HttpClientTestingModule],
       providers: [CartService]
   });
+  
   // Returns a service with the MockBackend so we can test with dummy responses
   service = TestBed.get(CartService); 
   httpTestingController = TestBed.get(HttpTestingController);
@@ -53,7 +28,6 @@ describe('CartService', () => {
     httpTestingController.verify();
   });
 
-
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
@@ -61,13 +35,40 @@ describe('CartService', () => {
   it('Items are empty',()=>{
       expect(service.getItems()).toEqual([]);
     })
-  
-    // it('get the the selected product',()=>{
-    //   service.placeOrder().subscribe(data=>{
-    //     expect(`${baseURL}orders`).toEqual([]);
-    //   })
-    //   const req= httpTestingController.expectOne(`${baseURL}orders`);
-    //  req.flush(mockProducts);
-    // });
 
+  it('returned data must match the observable',()=>{
+    const orders = [
+      {
+        id: '0',
+        name: 'ONE PLUS 6',
+        image: '/assets/images/6.jpeg',
+        category: 'mains',
+        featured: true,
+        label: 'Hot',
+        price: 24999,
+        description: 'Slate Gray 6GB RAM + 64GB memory',
+        details:[]
+        },
+      {
+        id: '1',
+        name: 'ONE PLUS 6T',
+        image: '/assets/images/6t.jpeg',
+        category: 'appetizer',
+        featured: false,
+        label: '',
+        price: 34999,
+        description: 'Midnight Black, 8GB RAM, 128GB Storage',
+        details:[]
+      },
+    ];
+    service.placeOrder()
+      .subscribe(orders => {
+        expect(orders[0].name).toEqual('ONE PLUS 6');
+      });
+      const req = httpTestingController.expectOne(`${baseURL}orders`);
+
+      expect(req.request.method).toEqual('POST');
+  
+      req.flush(orders);
+  })
 });
